@@ -1,50 +1,62 @@
-# Task Manager RESTFul-API
+# 🧾 Task Manager API – Built with Node.js & MongoDB
 
-Task manager application built using **NODE JS** and **MongoDB**. It follows a **RESTFul API** design architecture. The app sends an email notification upon registration and deactivation of the user's account. It's richly built with a simple scientific technique and best practices in the world of **API** design.
+A full-featured task management RESTful API built by **Chhatrapal Varma**, designed with production-level practices in authentication, file uploads, and cloud deployment. This backend app allows users to securely manage their personal tasks, with email notifications, profile avatars, and JWT-based session handling.
 
-## Features
+> 🔗 **Live API**: [https://api-taskmanager-5ups.onrender.com](https://api-taskmanager-5ups.onrender.com)  
+> 📦 **GitHub Repo**: [cybertron1408/api-taskmanager](https://github.com/cybertron1408/api-taskmanager)
 
-- Sending Emails
-- Authentication and Security
-- Sorting, Pagination, and Filtering
-- Avatar upload
+---
 
-## API Endpoints
+## 🚀 Key Features
 
-| Methods | Endpoints                          | Access  | Description                              |
-| ------- | ---------------------------------- | ------- | ---------------------------------------- |
-| POST    | /users                             | Public  | Sign up                                  |
-| POST    | /users/login                       | Public  | Login                                    |
-| GET     | /users/me                          | Private | User's Profile                           |
-| PATCH   | /users/me                          | Private | Update Profile                           |
-| POST    | /users/me/avatar                   | Private | Upload Profile Picture                   |
-| GET     | /users/userID/avataar              | Private | View Profile Picture                     |
-| DELETE  | /users/me/avatar                   | Private | Delete Profile Picture                   |
-| DELETE  | /users/me                          | Private | Delete Account                           |
-| POST    | /users/tasks                       | Private | Create a Task                            |
-| GET     | /users/tasks/taskID                | Private | View a Task                              |
-| GET     | /users/tasks                       | Private | View all Tasks                           |
-| GET     | /users/tasks?limit=2               | Private | Limit the result to 2                    |
-| GET     | /users/tasks?sortBy=createdAt:desc | Private | Sort by Descending order of created date |
-| GET     | /users/tasks?sortBy=createdAt:asc  | Private | Sort by Ascending order of created date  |
-| GET     | /users/tasks?skip=3                | Private | Paginating result                        |
-| PATCH   | /users/tasks/taskID                | Private | Update a Task                            |
-| DELETE  | /users/tasks/taskID                | Private | Delete a Task                            |
-| POST    | /users/logout                      | Private | Logout an account                        |
-| POST    | /users/logoutall                   | Private | Logout all accounts                      |
+- ✅ JWT Authentication and Login Sessions
+- ✉️ Email notifications using SendGrid (on signup and deletion)
+- 🔐 Secure password hashing with bcrypt
+- ☁️ MongoDB Atlas for cloud-based document storage
+- 📁 Avatar Uploads using `multer`
+- 📄 Task Filtering, Pagination, and Sorting
+- 🛠️ Built using Express.js, Mongoose, and deployed on Render
 
-## Hosted Domain Link
+---
 
-[Task Manager API](https://kater-task-manager-api.herokuapp.com/)
+## 📚 API Overview
 
-## Postman Collection Link
+| Method | Endpoint                           | Auth     | Description                               |
+|--------|------------------------------------|----------|-------------------------------------------|
+| POST   | `/users`                           | ❌ Public | Register a new user                       |
+| POST   | `/users/login`                     | ❌ Public | User login                                |
+| GET    | `/users/me`                        | ✅ Private| Get logged-in user's profile              |
+| PATCH  | `/users/me`                        | ✅ Private| Update user profile                       |
+| POST   | `/users/me/avatar`                 | ✅ Private| Upload profile picture                    |
+| GET    | `/users/:userId/avatar`            | ❌ Public | Fetch user's profile picture              |
+| DELETE | `/users/me/avatar`                 | ✅ Private| Delete profile picture                    |
+| DELETE | `/users/me`                        | ✅ Private| Delete user account                       |
+| POST   | `/users/logout`                    | ✅ Private| Logout current session                    |
+| POST   | `/users/logoutall`                 | ✅ Private| Logout all sessions                       |
 
-[Task Manager API Shared Collection](https://documenter.getpostman.com/view/7972459/Szf82npY)
+#### 🗂 Task Management Routes
 
-## Contributing
+| Method | Endpoint                            | Auth     | Description                              |
+|--------|-------------------------------------|----------|------------------------------------------|
+| POST   | `/users/tasks`                      | ✅ Private| Create a new task                        |
+| GET    | `/users/tasks/:taskId`              | ✅ Private| Fetch a single task                      |
+| GET    | `/users/tasks`                      | ✅ Private| Fetch all tasks                          |
+| PATCH  | `/users/tasks/:taskId`              | ✅ Private| Update a task                            |
+| DELETE | `/users/tasks/:taskId`              | ✅ Private| Delete a task                            |
 
-You can fork the repository and send pull request or reach out easily to me via twitter => [Kater Akeren](https://twitter.com/katerakeren)
+##### 🔍 Query Options
 
-## Security Vulnerabilities
+- `?limit=2` → Paginate results
+- `?skip=3` → Skip first 3 results
+- `?sortBy=createdAt:asc` or `desc` → Sort tasks by creation date
 
-If you discover a security vulnerability within the project, please create an issue. All security vulnerabilities will be promptly addressed and appreciated.
+---
+
+## 🔐 Environment Variables
+
+Before running locally, create a `.env` file:
+
+```env
+DB_URL=mongodb+srv://<user>:<pass>@cluster.mongodb.net/taskmanager
+JWT_SECRET_KEY=your_jwt_secret
+SENDGRID_API_KEY=your_sendgrid_api_key
